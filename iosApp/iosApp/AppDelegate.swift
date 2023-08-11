@@ -7,11 +7,17 @@
 //
 
 import UIKit
-
+import shared
+@main
 class AppDelegate:UIResponder,UIApplicationDelegate, WXApiDelegate{
+    
+    var window: UIWindow?
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         
-        print("didFinishLaunchingWithOptions")
+        window = UIWindow()
+        window?.rootViewController = Main_iosKt.MainViewController()
+        window?.makeKeyAndVisible()
         
         return true
     }
@@ -22,13 +28,6 @@ class AppDelegate:UIResponder,UIApplicationDelegate, WXApiDelegate{
         return WXApi.handleOpenUniversalLink(userActivity, delegate: self)
     }
     
-    func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
-        
-        
-        print("configurationForConnecting")
-        
-        return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
-    }
     
     func onReq(_ req: BaseReq) {
         
