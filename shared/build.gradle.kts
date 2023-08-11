@@ -23,6 +23,18 @@ kotlin {
             isStatic = true
         }
         extraSpecAttributes["resources"] = "['src/commonMain/resources/**', 'src/iosMain/resources/**']"
+        //在这里添加微信open sdk的支持，同步后自动会加入shared.podspec
+        pod("WechatOpenSDK")
+        pod("AFNetworking")
+    }
+
+    tasks.named<org.jetbrains.kotlin.gradle.tasks.DefFileTask>("generateDefWechatOpenSDK").configure {
+        doLast {
+            outputFile.writeText("""
+                language = Objective-C
+                headers = WXApi.h
+            """.trimIndent())
+        }
     }
 
     sourceSets {
