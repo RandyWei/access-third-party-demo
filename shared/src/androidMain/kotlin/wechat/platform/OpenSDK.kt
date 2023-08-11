@@ -1,14 +1,19 @@
 package wechat.platform
 
+import android.app.Activity
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.os.Bundle
 import com.tencent.mm.opensdk.constants.ConstantsAPI
+import com.tencent.mm.opensdk.modelbase.BaseReq
+import com.tencent.mm.opensdk.modelbase.BaseResp
 import com.tencent.mm.opensdk.modelmsg.SendMessageToWX
 import com.tencent.mm.opensdk.modelmsg.WXMediaMessage
 import com.tencent.mm.opensdk.modelmsg.WXTextObject
 import com.tencent.mm.opensdk.openapi.IWXAPI
+import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler
 import com.tencent.mm.opensdk.openapi.WXAPIFactory
 
 private lateinit var api: IWXAPI
@@ -56,5 +61,29 @@ actual object OpenSDK {
         req.scene = scene.ordinal
 
         api.sendReq(req)
+    }
+}
+
+class WXEntryActivity : Activity(), IWXAPIEventHandler {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        api.handleIntent(intent, this)
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        setIntent(intent)
+        api.handleIntent(intent, this)
+    }
+
+    override fun onReq(req: BaseReq?) {
+
+    }
+
+    override fun onResp(resp: BaseResp?) {
+        println(resp?.type)
+        println(resp?.errCode)
+        println(resp?.errStr)
+        finish()
     }
 }

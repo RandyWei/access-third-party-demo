@@ -18,12 +18,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".wxapi.WXEntryActivity"
-            android:exported="true"
-            android:launchMode="singleTask"
-            android:taskAffinity="com.chinahrt.app.shitu"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"></activity>
+<!--        <activity-->
+<!--            android:name=".wxapi.WXEntryActivity"-->
+<!--            android:exported="true"-->
+<!--            android:launchMode="singleTask"-->
+<!--            android:taskAffinity="com.chinahrt.app.shitu"-->
+<!--            android:theme="@android:style/Theme.Translucent.NoTitleBar"></activity>-->
     </application>
 
 </manifest>

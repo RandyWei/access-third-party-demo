@@ -5,13 +5,13 @@ import cocoapods.WechatOpenSDK.*
 actual object OpenSDK {
 
     fun registerApp(appID: String, universalLink: String) {
-        WXApi.startLogByLevel(WXLogLevelDetail) {
-            println(it)
-        }
+//        WXApi.startLogByLevel(WXLogLevelDetail) {
+//            println(it)
+//        }
         WXApi.registerApp(appID, universalLink)
-        WXApi.checkUniversalLinkReady { step, result ->
-            println("step:$step result.success:${result?.success},errorInfo:${result?.errorInfo},suggestion:${result?.suggestion}")
-        }
+//        WXApi.checkUniversalLinkReady { step, result ->
+//            println("step:$step result.success:${result?.success},errorInfo:${result?.errorInfo},suggestion:${result?.suggestion}")
+//        }
     }
 
 
