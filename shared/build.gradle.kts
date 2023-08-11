@@ -33,6 +33,7 @@ kotlin {
                 implementation(compose.material3)
                 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                 implementation(compose.components.resources)
+                implementation(compose.animation)
 
                 val voyagerVersion = "1.0.0-rc06"
                 // Navigator
