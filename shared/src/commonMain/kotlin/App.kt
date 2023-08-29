@@ -23,6 +23,7 @@ import cafe.adriel.voyager.navigator.currentOrThrow
 import cafe.adriel.voyager.transitions.SlideTransition
 import wechat.WXFeatureScreen
 
+
 data class Feature(val name: String, val target: Screen)
 
 @OptIn(ExperimentalAnimationApi::class)
@@ -36,6 +37,7 @@ fun App() {
 object Home : Screen {
     @Composable
     override fun Content() {
+
 
 
         val features = listOf(Feature("微信open sdk功能", WXFeatureScreen))

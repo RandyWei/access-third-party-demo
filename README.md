@@ -16,6 +16,11 @@ The result will be a [Kotlin Multiplatform](https://kotlinlang.org/docs/multipla
 If you want to create an application targeting desktop platforms – Windows, macOS, or Linux –
 use the [Compose Multiplatform desktop application template](https://github.com/JetBrains/compose-multiplatform-desktop-template#readme).
 
+## 实现AppDelegate代理
+ - 使用原生代码实现一个UIAppDelegate
+ - 然后在里面注册一个LifeCycleDelegate
+ - 然后共享到各个平台
+
 ## Set up the environment
 
 > **Warning**

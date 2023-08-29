@@ -16,10 +16,10 @@ import com.tencent.mm.opensdk.openapi.IWXAPI
 import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler
 import com.tencent.mm.opensdk.openapi.WXAPIFactory
 
-private lateinit var api: IWXAPI
 
 actual object OpenSDK {
 
+    internal lateinit var api: IWXAPI
 
     fun registerApp(context: Context, appID: String) {
         if (!::api.isInitialized) {
@@ -61,29 +61,5 @@ actual object OpenSDK {
         req.scene = scene.ordinal
 
         api.sendReq(req)
-    }
-}
-
-class WXEntryActivity : Activity(), IWXAPIEventHandler {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        api.handleIntent(intent, this)
-    }
-
-    override fun onNewIntent(intent: Intent?) {
-        super.onNewIntent(intent)
-        setIntent(intent)
-        api.handleIntent(intent, this)
-    }
-
-    override fun onReq(req: BaseReq?) {
-
-    }
-
-    override fun onResp(resp: BaseResp?) {
-        println(resp?.type)
-        println(resp?.errCode)
-        println(resp?.errStr)
-        finish()
     }
 }
