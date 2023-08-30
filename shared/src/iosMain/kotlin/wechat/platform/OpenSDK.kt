@@ -6,7 +6,10 @@ import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.allocArrayOf
 import kotlinx.cinterop.memScoped
 import platform.Foundation.NSData
+import platform.Foundation.NSURL
+import platform.Foundation.NSUserActivity
 import platform.Foundation.create
+import platform.darwin.NSObject
 
 @OptIn(ExperimentalForeignApi::class, BetaInteropApi::class)
 actual object OpenSDK {
@@ -20,6 +23,35 @@ actual object OpenSDK {
 //        WXApi.checkUniversalLinkReady { step, result ->
 //            println("step:$step result.success:${result?.success},errorInfo:${result?.errorInfo},suggestion:${result?.suggestion}")
 //        }
+    }
+
+    fun handleOpenUrl(url:NSURL): Boolean{
+        return WXApi.handleOpenURL(url,object : WXApiDelegateProtocol, NSObject() {
+            override fun onReq(req: BaseReq) {
+
+            }
+
+            override fun onResp(resp: BaseResp) {
+                println(resp.errCode)
+                println(resp.errStr)
+                println(resp.type)
+            }
+        })
+    }
+
+    fun handleOpenUniversalLink(userActivity: NSUserActivity): Boolean {
+        return WXApi.handleOpenUniversalLink(userActivity,
+            object : WXApiDelegateProtocol, NSObject() {
+                override fun onReq(req: BaseReq) {
+
+                }
+
+                override fun onResp(resp: BaseResp) {
+                    println(resp.errCode)
+                    println(resp.errStr)
+                    println(resp.type)
+                }
+            })
     }
 
 
