@@ -1,3 +1,5 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+
 plugins {
     kotlin("multiplatform")
     id("com.android.application")
@@ -15,6 +17,8 @@ kotlin {
     }
 }
 
+val localProperties = gradleLocalProperties(rootDir)
+
 android {
     compileSdk = (findProperty("android.compileSdk") as String).toInt()
     namespace = "com.chinahrt.app.shitu"
@@ -31,10 +35,10 @@ android {
 
     signingConfigs{
         create("release"){
-            keyAlias = "key0"
-            keyPassword = "chinahrt00"
-            storePassword = "chinahrt00"
-            storeFile = file("/Users/wei/AndroidStudioProjects/shitu/android/app/keystore")
+            keyAlias = (localProperties.getProperty("key.alias") as String)
+            keyPassword = (localProperties.getProperty("key.password") as String)
+            storeFile = file(localProperties.getProperty("key.path") as String)
+            storePassword = (localProperties.getProperty("key.password") as String)
         }
     }
 

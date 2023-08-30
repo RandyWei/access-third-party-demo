@@ -7,4 +7,6 @@ expect object OpenSDK {
      * @param text
      */
     fun shareText(text: String,scene:WXScene)
+
+    fun shareUrl(url:String,title:String,desc:String,thumb:ByteArray, scene: WXScene)
 }

@@ -19,15 +19,19 @@ import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import wechat.platform.OpenSDK
 import wechat.platform.WXScene
+import androidx.compose.runtime.rememberCoroutineScope
+import kotlinx.coroutines.launch
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.resource
 
 object WXFeatureScreen : Screen {
-    @OptIn(ExperimentalMaterial3Api::class)
+    @OptIn(ExperimentalMaterial3Api::class, ExperimentalResourceApi::class)
     @Composable
     override fun Content() {
 
 
         val navigator = LocalNavigator.currentOrThrow
-
+        val scope = rememberCoroutineScope()
         Scaffold(topBar = {
             CenterAlignedTopAppBar(title = {
                 Text("微信Open SDK")
@@ -45,6 +49,22 @@ object WXFeatureScreen : Screen {
                         OpenSDK.shareText("示例文本", WXScene.Session)
                     }) {
                         Text("分享文本")
+                    }
+                }
+
+                item {
+                    Button(modifier = Modifier.fillMaxWidth(), onClick = {
+                        scope.launch {
+                            OpenSDK.shareUrl(
+                                "https://www.baidu.com",
+                                "百度",
+                                "分享百度",
+                                resource("demo@4x.png").readBytes(),
+                                WXScene.Session
+                            )
+                        }
+                    }) {
+                        Text("分享见面")
                     }
                 }
             }

@@ -1,19 +1,15 @@
 package wechat.platform
 
-import android.app.Activity
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import android.os.Bundle
 import com.tencent.mm.opensdk.constants.ConstantsAPI
-import com.tencent.mm.opensdk.modelbase.BaseReq
-import com.tencent.mm.opensdk.modelbase.BaseResp
 import com.tencent.mm.opensdk.modelmsg.SendMessageToWX
 import com.tencent.mm.opensdk.modelmsg.WXMediaMessage
 import com.tencent.mm.opensdk.modelmsg.WXTextObject
+import com.tencent.mm.opensdk.modelmsg.WXWebpageObject
 import com.tencent.mm.opensdk.openapi.IWXAPI
-import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler
 import com.tencent.mm.opensdk.openapi.WXAPIFactory
 
 
@@ -60,6 +56,27 @@ actual object OpenSDK {
         req.message = msg
         req.scene = scene.ordinal
 
+        api.sendReq(req)
+    }
+
+    actual fun shareUrl(
+        url: String,
+        title: String,
+        desc: String,
+        thumb: ByteArray, scene: WXScene
+    ) {
+        val webObj = WXWebpageObject()
+        webObj.webpageUrl = url
+
+        val msg = WXMediaMessage()
+        msg.mediaObject = webObj
+        msg.title = title
+        msg.description = desc
+        msg.thumbData = thumb
+        val req = SendMessageToWX.Req()
+        req.transaction = System.currentTimeMillis().toString()
+        req.message = msg
+        req.scene = scene.ordinal
         api.sendReq(req)
     }
 }
